@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Dec 25, 2017 7:47:59 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="model.Users" table="users" catalog="db_webjava" optimistic-lock="version">
+        <id name="idusers" type="java.lang.Integer">
+            <column name="idusers" />
+            <generator class="identity" />
+        </id>
+        <property name="username" type="string">
+            <column name="username" length="30" not-null="true" unique="true" />
+        </property>
+        <property name="email" type="string">
+            <column name="email" length="50" not-null="true" unique="true" />
+        </property>
+        <property name="pwd" type="string">
+            <column name="pwd" length="50" not-null="true" />
+        </property>
+        <property name="fullname" type="string">
+            <column name="fullname" length="45" />
+        </property>
+        <property name="createddate" type="timestamp">
+            <column name="createddate" length="19" />
+        </property>
+        <property name="status" type="java.lang.Integer">
+            <column name="status" />
+        </property>
+        <property name="roleid" type="java.lang.Integer">
+            <column name="roleid" />
+        </property>
+        <property name="notes" type="string">
+            <column name="notes" length="100" />
+        </property>
+        <property name="avatar" type="string">
+            <column name="avatar" length="150" />
+        </property>
+        <set name="newses" table="news" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idusers" />
+            </key>
+            <one-to-many class="model.News" />
+        </set>
+        <set name="commentses" table="comments" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idusers" not-null="true" />
+            </key>
+            <one-to-many class="model.Comments" />
+        </set>
+        <set name="savednewses" table="savednews" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idusers" not-null="true" />
+            </key>
+            <one-to-many class="model.Savednews" />
+        </set>
+    </class>
+</hibernate-mapping>
